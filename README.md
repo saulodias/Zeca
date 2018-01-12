@@ -1,5 +1,5 @@
 # Zeca
-Zeca is a Discord bot for the Portuguese Learning and Discussion server.
+Zeca is a Discord bot for the [Portuguese Learning and Discussion](https://discord.gg/xMwmBZe) server.
 
 ***Current Goals:***
 
