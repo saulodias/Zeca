@@ -71,11 +71,12 @@ class Query():
          value = '**{}**\n'.format(self.term)
          value = value + self.description
          return value
-        
+
+
 def _urlify(s):
-     # Remove all non-word characters (everything except numbers and letters)
+     # Remove all non-word characters
      s = re.sub(r'[^\w\s]', '', s)
-     # Replace all runs of whitespace with a single dash
+     # Replace all runs of whitespace with %20
      s = re.sub(r'\s+', '%20', s)
      return s
     
