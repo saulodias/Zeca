@@ -32,7 +32,7 @@ You'll need to install the following modules:
 
 ..```pip install -U https://github.com/Rapptz/discord.py/archive/rewrite.zip```
 
-\* The version on *pip* is not currently maintained
+\* The version on *pip* is not currently maintained.
 
 And for the module *dicinformal*:
 
