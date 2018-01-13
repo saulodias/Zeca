@@ -27,7 +27,7 @@ Download and install *Python 3.6*.
 
 You'll need to install the following modules:
 
-**discord** (*rewrite version*)\*
+**discord (rewrite version)\***
 
 ..```pip install -U https://github.com/Rapptz/discord.py/archive/rewrite.zip```
 
