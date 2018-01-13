@@ -26,7 +26,7 @@ Your bot should now appear on your server.
 
 1. Download and install *Python 3.6* and the bot files;
 2. On the root folder press SHIFT, right-click and select *Open command window here*;
-4. Run ```pip -r requirements.txt```
+4. Run ```pip install -r requirements.txt```
 3. In the file private.py insert the token you got for the bot you created.
 
 ## Current Goals
