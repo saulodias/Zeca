@@ -11,6 +11,7 @@ You'll need to install the following modules
 \* The version on *pip* is not currently maintained
 
 And for the module *dicinformal*
+
 **bs4 (BeautifulSoup)**
 
 ```pip install bs4```
