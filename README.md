@@ -27,7 +27,7 @@ Your bot should now appear on your server.
 1. Download and install *Python 3.6* and the bot files;
 2. If you have Git installed, on the root folder, run ```pip install -r requirements.txt```
 
-Or if you prefer it manually.
+Or if you prefer manual installation:
 
 ```pip install -U https://github.com/Rapptz/discord.py/archive/rewrite.zip```
 
