@@ -1,4 +1,4 @@
 requests==2.18.4
-discord.py==1.0.0a0
++git+git://github.com/Rapptz/discord.py@rewrite#egg=discord
 beautifulsoup4==4.6.0
 discord==0.0.2
