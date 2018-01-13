@@ -24,27 +24,10 @@ Your bot should now appear on your server.
 
 ## Installation
 
-Download and install *Python 3.6*.
-
-You'll need to install the following modules:
-
-**discord (rewrite version)\***
-
-```pip install -U https://github.com/Rapptz/discord.py/archive/rewrite.zip```
-
-\* The version on *pip* is not currently maintained.
-
-And for the module *dicinformal*:
-
-**bs4 (BeautifulSoup)**
-
-```pip install bs4```
-
-**requests (http requests)**
-
-```pip install requests```
-
-In the file private.py insert the token you got for the bot you created.
+1. Download and install *Python 3.6*.
+2. On the root folder, run:
+```pip -r requirements.txt```
+3. In the file private.py insert the token you got for the bot you created.
 
 ## Current Goals
 
