@@ -4,18 +4,18 @@ Zeca is a Discord bot for the [Portuguese Learning and Discussion](https://disco
 ## Creating a bot
 
 1. Go to https://discordapp.com/developers/applications/me;
-2. Click on New App;
-3. Enter a name for your bot (and a description) and click on *Create App*;
-4. Scrool down and click on *Create a Bot User*;
-5. Click on *Save changes*;
-6. Under *Bot* click on *click to reveal* to show your Token. Copy it and save it somewhere safe\*;
+2. Click New App;
+3. Enter a name for your bot (and a description) and click *Create App*;
+4. Scrool down and click *Create a Bot User*;
+5. Click *Save changes*;
+6. Under *Bot* click *click to reveal* to show your Token. Copy it and save it somewhere safe\*;
 
 \* Don't let anyone see your token or they will be able to access your bot.
 
 
 ## Adding the bot to your server
 
-1. On the same page click on *Generate OAuth2 URL*;
+1. On the same page click *Generate OAuth2 URL*;
 2. Under *Bot Permissions* select *Administrator*;
 3. Copy the link and paste it on your browser;
 4. Select the server you want to join the bot and click on Authorize.
