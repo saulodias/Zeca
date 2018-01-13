@@ -18,7 +18,7 @@ Zeca is a Discord bot for the [Portuguese Learning and Discussion](https://disco
 1. On the same page click *Generate OAuth2 URL*;
 2. Under *Bot Permissions* select *Administrator*;
 3. Copy the link and paste it on your browser;
-4. Select the server you want to join the bot and click on Authorize.
+4. Select the server you want to join the bot and click Authorize.
 
 Your bot should now appear on your server.
 
