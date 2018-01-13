@@ -10,7 +10,7 @@ Zeca is a Discord bot for the [Portuguese Learning and Discussion](https://disco
 5. Click on *Save changes*.
 6. Under *Bot* click on *click to review* to show your Token. Copy it and save it somewhere safe.\*
 
-Don't let anyone see your token or they will have access to your bot.
+\* Don't let anyone see your token or they will be able to access your bot.
 
 
 ## Adding the bot to your server
