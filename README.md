@@ -8,7 +8,7 @@ Zeca is a Discord bot for the [Portuguese Learning and Discussion](https://disco
 3. Enter a name for your bot (and a description) and click on *Create App*;
 4. Scrool down and click on *Create a Bot User*;
 5. Click on *Save changes*;
-6. Under *Bot* click on *click to reveal* to show your Token. Copy it and save it somewhere safe;\*
+6. Under *Bot* click on *click to reveal* to show your Token. Copy it and save it somewhere safe\*;
 
 \* Don't let anyone see your token or they will be able to access your bot.
 
