@@ -9,6 +9,7 @@ description = """Portuguese Learning and Discussion utilities bot."""
 
 bot = commands.Bot(command_prefix=command_prefix, description=description)
 
+
 @bot.event
 async def on_ready():
     print('Logged in as: {}'.format(bot.user.name))
@@ -19,25 +20,49 @@ async def on_ready():
 
 
 @bot.command(name='dicinf', aliases=['di', 'dicinformal'])
-async def _dicionarioinformal(ctx, *, term=None):
+async def _dicionarioinformal(ctx, *term):
     """
     Looks a word up in the Dicionário Informal.
     
     Don't trust this dictionary blindly. It's like a Brazilian Urban Dictionary.
     """
-    result = dicinformal.Query(term)
-    embed = discord.Embed(title=result.term,
-                          url=result.url,
-                          description=result.description,
-                          color=0x3498DB)
-    embed.set_footer(icon_url=result.favicon,
-                     text=result.disclaimer)
-    await ctx.send(embed=embed)
-    
+    def _meaning(term):
+        result = dicinformal.Query(term)
+        embed = discord.Embed(title=result.term,
+                              url=result.url,
+                              description=result.description,
+                              color=0x3498DB)
+        embed.set_footer(icon_url=result.favicon,
+                         text=result.disclaimer)
+        return embed
+
+    def _synonym(term):
+        return 'synonym of {}'.format(term)
+
+    def _antonym(term):
+        return 'antonym of {}'.format(term)
+
+    # Parse sub-command
+    sub_commands = {'-a': _antonym, '-s': _synonym}
+    sub_command = [i for i in term if i in list(sub_commands.keys())]
+    if sub_command:
+        sub_command = sub_command[0]
+        term = list(term)
+        term.remove(sub_command)
+        term = ' '.join(term)
+        await ctx.send(sub_commands[sub_command](term))
+    # Default command
+    else:
+        term = ' '.join(term)
+        await ctx.send(embed=_meaning(term))
+
+
 @_dicionarioinformal.error
 async def _dicionarioinformal_error(ctx, error):
     if isinstance(error, commands.CommandInvokeError):
-        await ctx.send(':exclamation: No results found.')
+        await ctx.send(error.__cause__)
+        # await ctx.send(':exclamation: No results found.')
+
 
 @bot.command(name='role', aliases=['r'])
 async def _role(ctx, *, role):
@@ -46,47 +71,58 @@ async def _role(ctx, *, role):
     
     If role is a level role (Level A, Level B, Level C, or Native),
     the previous level will be automatically removed.
+
+    Sub-command:
+        list:  Shows a list of public roles.
+
     """
-    level_roles = ['Level A', 'Level B', 'Level C', 'Native']
-    country_roles = ['PT', 'BR', 'AO', 'CV', 'GQ', 'GW',
-                     'MO', 'MZ', 'ST', 'TL']
-    other_roles = ['hitmeup', 'Notify me']
-    public_roles = [*level_roles, *country_roles, *other_roles]
-    roles_validation = [i.lower() for i in public_roles]
-    if role.lower() in roles_validation:
-        role = public_roles[roles_validation.index(role)]
+    level_roles = {'level a': 'Level A', 'level b': 'Level B',
+                   'level c': 'Level C', 'native': 'Native'}
+    country_roles = {'pt': 'PT', 'br': 'BR', 'ao': 'AO', 'cv': 'CV', 'gq': 'GQ',
+                     'gw': 'GW', 'mo': 'MO', 'mz': 'MZ', 'st': 'ST', 'tl': 'TL'}
+    other_roles = {'hitmeup': 'hitmeup', 'notify me': 'Notify me'}
+    public_roles = {**level_roles, **country_roles, **other_roles}
+
+    if role.lower() in list(public_roles.keys()):
+        role = public_roles[role.lower()]
+        role = await commands.RoleConverter().convert(ctx, role)
+        member = ctx.author
+        if role in member.roles:
+            await member.remove_roles(role)
+            await ctx.send(':white_check_mark: Role removed.')
+        else:
+            if role.name in list(level_roles.values()):
+                for _, r in enumerate(member.roles):
+                    if r.name in list(level_roles.values()):
+                        await member.remove_roles(r)
+            await member.add_roles(role)
+            await ctx.send(':white_check_mark: Role granted.')
+    elif role == 'list':
+        output = 'Public roles available:\n' + '```' + \
+                 ', '.join(list(public_roles.values())) + '```'
+        await ctx.send(output)
     else:
-        raise commands.BadArgument    
-    role = await commands.RoleConverter().convert(ctx, role)
-    
-    member = ctx.author
-    if role in member.roles:
-        await member.remove_roles(role)
-        await ctx.send(':white_check_mark: Role removed.')
-    elif role.name in public_roles:
-        if role.name in level_roles:
-            for q, r in enumerate(member.roles):
-                if r.name in level_roles:
-                    await member.remove_roles(r)
-        await member.add_roles(role)
-        await ctx.send(':white_check_mark: Role granted.')
+        raise commands.BadArgument
+
 
 @_role.error
 async def _role_error(ctx, error):
     if isinstance(error, commands.BadArgument):
         await ctx.send(':exclamation:This role does not exist or is not ' +
                        'public. Check your spelling.')
-        
+
+
 @bot.command()
 async def nick(ctx, *, new_nick):
     """ Changes the nickname of a member. """
     member = ctx.author
     await member.edit(nick=new_nick)
 
+
 @nick.error
 async def nick_error(ctx, error):
     if isinstance(error, commands.CommandInvokeError):
-        #await ctx.send(error.__cause__)
+        # await ctx.send(error.__cause__)
         await ctx.send('I don\'t have permission for that, master.')
 
 

@@ -21,13 +21,13 @@ class Query():
                     _urlify(self.term) + '/'
         r = requests.get(self.url)
         if r.status_code != 200:
-           raise Exception(str(r.status_code) + 'Error')
+            raise Exception(str(r.status_code) + 'Error')
         content = BeautifulSoup(r.content, 'html.parser')
         self.content = content
 
     def fetch(self, *args, **kwargs):
         value = self.content.find(*args, **kwargs)
-        if value == None:
+        if value is None:
             raise ValueError('No results found.')
         value = value.text
         value = value.strip(' \t\n')
@@ -36,7 +36,7 @@ class Query():
     
     def fetch_all(self, *args, **kwargs):
         value = self.content.find_all(*args, **kwargs)
-        if value == None:
+        if value is None:
             raise ValueError('No results found.')
         value = [i.text for i in value]
         value = [i.strip(' \t\n') for i in value]
@@ -61,34 +61,32 @@ class Query():
 
     @property
     def description(self):
-         value = '{}'.format(self.meaning)
-         if self.quote:
-             value = value + '\n\n*{}*'.format(self.quote)
-         return value
+        value = '{}'.format(self.meaning)
+        if self.quote:
+            value = value + '\n\n*{}*'.format(self.quote)
+        return value
     
     @property
     def definition(self):
-         value = '**{}**\n'.format(self.term)
-         value = value + self.description
-         return value
+        value = '**{}**\n'.format(self.term)
+        value = value + self.description
+        return value
 
 
 def _urlify(s):
-     # Remove all non-word characters
-     s = re.sub(r'[^\w\s]', '', s)
-     # Replace all runs of whitespace with %20
-     s = re.sub(r'\s+', '%20', s)
-     return s
-    
+    # Remove all non-word characters
+    s = re.sub(r'[^\w\s]', '', s)
+    # Replace all runs of whitespace with %20
+    s = re.sub(r'\s+', '%20', s)
+    return s
+
+
 def _trim(value):
     if len(value) > 400:
             value = value[:400] + '...'
     return value
 
-def main():
-    result = Query('caralho')
-    print(result.definition)
 
 if __name__ == "__main__":
-    main()
-    
+    result = Query('teste')
+    print(result.definition)
