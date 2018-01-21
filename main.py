@@ -9,6 +9,15 @@ description = """Portuguese Learning and Discussion utilities bot."""
 
 bot = commands.Bot(command_prefix=command_prefix, description=description)
 
+initial_extensions = ['cogs.moderator']
+
+if __name__ == "__main__":
+    for extension in initial_extensions:
+        try:
+            bot.load_extension(extension)
+        except Exception as ex:
+            print('Failed to load extension ' + extension)
+
 
 @bot.event
 async def on_ready():
