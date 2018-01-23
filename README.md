@@ -39,5 +39,4 @@ Or if you prefer manual installation:
 
 ## Current Goals
 
- - Implement a global check to make room for moderation tools.
- - Create a Utilities and a Moderation command category.
+ - Implement antonyms and synonyms queries for the module dicinformal (Dicionário Informal).
