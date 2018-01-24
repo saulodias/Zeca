@@ -36,7 +36,3 @@ Or if you prefer manual installation:
 ```pip install requests```
 
 3. In the file private.py insert the token you got for the bot you created.
-
-## Current Goals
-
- - Implement antonyms and synonyms queries for the module dicinformal (Dicionário Informal).
