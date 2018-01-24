@@ -1,6 +1,10 @@
 # Bot's private info
 private.py
 
+# Code Editors
+.idea/
+.vscode/
+
 # Created by https://www.gitignore.io/api/python,pycharm
 
 ### PyCharm ###
