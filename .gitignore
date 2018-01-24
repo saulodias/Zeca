@@ -5,6 +5,10 @@ private.py
 .idea/
 .vscode/
 
+# Portuguese Learning and Discussion instance details
+aws/
+
+#-------------------------------------------------------
 # Created by https://www.gitignore.io/api/python,pycharm
 
 ### PyCharm ###
