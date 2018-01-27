@@ -26,6 +26,18 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='Type >help'))
 
 
+@bot.event
+async def on_member_join(member):
+    general_channel = discord.utils.get(bot.get_all_channels(), name='general')
+    info_channel = discord.utils.get(bot.get_all_channels(), name='info')
+
+    welcome_message = 'Welcome, <@' + str(member.id) + '>! ' + \
+        'Please check out <#' + str(info_channel.id) + '> to learn ' + \
+        'about server rules and cool stuff. :smile:'
+    if general_channel is not None:
+        await general_channel.send(welcome_message)
+
+
 @bot.command(name='eval', hidden=True)
 @commands.is_owner()
 async def _eval(ctx, *, code):
