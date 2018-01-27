@@ -24,6 +24,10 @@ async def on_ready():
     print('Discord Version: {}'.format(discord.__version__))
     print('-------------')
     await bot.change_presence(game=discord.Game(name='Type >help'))
+    guild = bot.guilds[0]
+    role = discord.utils.get(guild.roles, name='hitmeup')
+    for member in role.members:
+        await member.remove_roles(role)
 
 
 @bot.event
@@ -33,9 +37,17 @@ async def on_member_join(member):
 
     welcome_message = 'Welcome, <@' + str(member.id) + '>! ' + \
         'Please check out <#' + str(info_channel.id) + '> to learn ' + \
-        'about server rules and cool stuff. :smile:'
+        'about the server rules and cool stuff. :smile:'
     if general_channel is not None:
         await general_channel.send(welcome_message)
+
+
+@bot.command(name='revoke_role', hidden=True)
+@commands.is_owner()
+async def _revoke_role(ctx, *, role,):
+    role = await commands.RoleConverter().convert(ctx, role)
+    for member in role.members:
+        await member.remove_roles(role)
 
 
 @bot.command(name='eval', hidden=True)

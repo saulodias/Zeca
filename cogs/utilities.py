@@ -1,5 +1,6 @@
 import discord
 import dicinformal
+import asyncio
 from discord.ext import commands
 
 
@@ -16,6 +17,8 @@ class Utilities:
 
         If role is a level role (Level A, Level B, Level C, or Native),
         the previous level will be automatically removed.
+
+        The role 'hitmeup' expires after 1 hour.
 
         Sub-command:
             list:  Shows a list of public roles.
@@ -41,6 +44,18 @@ class Utilities:
                             await member.remove_roles(r)
                 await member.add_roles(role)
                 await ctx.send(':white_check_mark: Role granted.')
+                # Schedules the hitmeup role expiration
+                if role.name == 'hitmeup':
+                    expired_role_msg = 'Your role "hitmeup" role has ' + \
+                        'expired. To renew the role type `>r hitmeup` ' + \
+                        'in the bot_channel. Don\'t forget this role ' + \
+                        'expires each hour.\nThanks for being part of the ' +\
+                        'Portuguese Learning and Discussion Community! :smile:'
+                    await asyncio.sleep(3600)
+                    if role in member.roles:
+                        await member.remove_roles(role)
+                        await ctx.author.send(expired_role_msg)
+
         elif role == 'list':
             output = 'Public roles available:\n' + '```' + \
                      ', '.join(list(public_roles.values())) + '```'
