@@ -62,8 +62,8 @@ class Utilities:
         Don't trust this dictionary blindly. It's like a Brazilian Urban Dictionary.
         """
 
-        def _meaning(term):
-            result = dicinformal.Query(term)
+        def _meaning(entry):
+            result = dicinformal.Query(entry)
             embed = discord.Embed(title=result.term,
                                   url=result.url,
                                   description=result.description,
@@ -72,11 +72,11 @@ class Utilities:
                              text=result.disclaimer)
             return embed
 
-        def _synonym(term):
-            return 'synonym of {}'.format(term)
+        def _synonym(entry):
+            return 'synonym of {}'.format(entry)
 
-        def _antonym(term):
-            return 'antonym of {}'.format(term)
+        def _antonym(entry):
+            return 'antonym of {}'.format(entry)
 
         # Parse sub-command
         sub_commands = {'-a': _antonym, '-s': _synonym}
