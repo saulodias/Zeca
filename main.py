@@ -1,5 +1,6 @@
 import discord
 import private
+from cogs import utilities
 from discord.ext import commands
 
 command_prefix = '>'
@@ -28,6 +29,7 @@ async def on_ready():
     role = discord.utils.get(guild.roles, name='hitmeup')
     for member in role.members:
         await member.remove_roles(role)
+        await member.send(utilities.Utilities.expired_role_msg)
 
 
 @bot.event
@@ -48,6 +50,7 @@ async def _revoke_role(ctx, *, role,):
     role = await commands.RoleConverter().convert(ctx, role)
     for member in role.members:
         await member.remove_roles(role)
+        await member.send(utilities.Utilities.expired_role_msg)
 
 
 @bot.command(name='eval', hidden=True)

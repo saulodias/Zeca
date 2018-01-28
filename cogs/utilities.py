@@ -10,6 +10,12 @@ class Utilities:
     def __init__(self, bot):
         self.bot = bot
 
+    expired_role_msg = 'Your role "hitmeup" role has ' + \
+                       'expired. To renew the role type `>r hitmeup` ' + \
+                       'in the bot_channel. Don\'t forget this role ' + \
+                       'expires in one hour.\nThanks for being part of the ' + \
+                       'Portuguese Learning and Discussion Community! :smile:'
+
     @commands.command(name='role', aliases=['r'])
     async def _role(self, ctx, *, role):
         """
@@ -46,15 +52,10 @@ class Utilities:
                 await ctx.send(':white_check_mark: Role granted.')
                 # Schedules the hitmeup role expiration
                 if role.name == 'hitmeup':
-                    expired_role_msg = 'Your role "hitmeup" role has ' + \
-                        'expired. To renew the role type `>r hitmeup` ' + \
-                        'in the bot_channel. Don\'t forget this role ' + \
-                        'expires each hour.\nThanks for being part of the ' +\
-                        'Portuguese Learning and Discussion Community! :smile:'
                     await asyncio.sleep(3600)
                     if role in member.roles:
                         await member.remove_roles(role)
-                        await ctx.author.send(expired_role_msg)
+                        await ctx.author.send(self.expired_role_msg)
 
         elif role == 'list':
             output = 'Public roles available:\n' + '```' + \
