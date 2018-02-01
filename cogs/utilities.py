@@ -16,6 +16,13 @@ class Utilities:
                        'expires in one hour.\nThanks for being part of the ' + \
                        'Portuguese Learning and Discussion Community! :smile:'
 
+    level_roles = {'level a': 'Level A', 'level b': 'Level B',
+                   'level c': 'Level C', 'native': 'Native'}
+    country_roles = {'pt': 'PT', 'br': 'BR', 'ao': 'AO', 'cv': 'CV', 'gq': 'GQ',
+                     'gw': 'GW', 'mo': 'MO', 'mz': 'MZ', 'st': 'ST', 'tl': 'TL'}
+    other_roles = {'hitmeup': 'hitmeup', 'notify me': 'Notify me'}
+    public_roles = {**level_roles, **country_roles, **other_roles}
+
     @commands.command(name='role', aliases=['r'])
     async def _role(self, ctx, *, role):
         """
@@ -29,12 +36,6 @@ class Utilities:
         Sub-command:
             list:  Shows a list of public roles.
         """
-        level_roles = {'level a': 'Level A', 'level b': 'Level B',
-                       'level c': 'Level C', 'native': 'Native'}
-        country_roles = {'pt': 'PT', 'br': 'BR', 'ao': 'AO', 'cv': 'CV', 'gq': 'GQ',
-                         'gw': 'GW', 'mo': 'MO', 'mz': 'MZ', 'st': 'ST', 'tl': 'TL'}
-        other_roles = {'hitmeup': 'hitmeup', 'notify me': 'Notify me'}
-        public_roles = {**level_roles, **country_roles, **other_roles}
 
         if role.lower() in list(public_roles.keys()):
             role = public_roles[role.lower()]

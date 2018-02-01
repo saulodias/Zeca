@@ -8,7 +8,7 @@ description = """Portuguese Learning and Discussion utilities bot."""
 
 bot = commands.Bot(command_prefix=command_prefix, description=description)
 
-initial_extensions = ['cogs.moderator', 'cogs.utilities']
+initial_extensions = ['cogs.moderator', 'cogs.utilities', 'cogs.zoeira']
 
 if __name__ == "__main__":
     for extension in initial_extensions:
