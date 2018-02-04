@@ -10,6 +10,8 @@ class Utilities:
     def __init__(self, bot):
         self.bot = bot
 
+    # Some commands variables are class properties, so it's easier
+    # to access them from higher levels when needed.
     expired_role_msg = 'Your role "hitmeup" role has ' + \
                        'expired. To renew the role type `>r hitmeup` ' + \
                        'in the bot_channel. Don\'t forget this role ' + \
@@ -37,17 +39,17 @@ class Utilities:
             list:  Shows a list of public roles.
         """
 
-        if role.lower() in list(public_roles.keys()):
-            role = public_roles[role.lower()]
+        if role.lower() in list(self.public_roles.keys()):
+            role = self.public_roles[role.lower()]
             role = await commands.RoleConverter().convert(ctx, role)
             member = ctx.author
             if role in member.roles:
                 await member.remove_roles(role)
                 await ctx.send(':white_check_mark: Role removed.')
             else:
-                if role.name in list(level_roles.values()):
+                if role.name in list(self.level_roles.values()):
                     for _, r in enumerate(member.roles):
-                        if r.name in list(level_roles.values()):
+                        if r.name in list(self.level_roles.values()):
                             await member.remove_roles(r)
                 await member.add_roles(role)
                 await ctx.send(':white_check_mark: Role granted.')
@@ -60,7 +62,7 @@ class Utilities:
 
         elif role == 'list':
             output = 'Public roles available:\n' + '```' + \
-                     ', '.join(list(public_roles.values())) + '```'
+                     ', '.join(list(self.public_roles.values())) + '```'
             await ctx.send(output)
         else:
             raise commands.BadArgument

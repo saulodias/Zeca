@@ -13,13 +13,13 @@ class Zoeira:
     async def _ban(self, ctx, member: discord.Member):
         """For the craic."""
         if ctx.author.nick:
-            author = str(ctx.author.nick)
+            author = ctx.author.nick
         else:
-            author = str(ctx.author.name)
+            author = ctx.author.name
         if member.nick:
-            member = str(member.nick)
+            member = member.nick
         else:
-            member = str(member.name)
+            member = member.name
         message = author + ' has banned ' + member + '.'
         await ctx.send(message)
 
@@ -27,13 +27,13 @@ class Zoeira:
     async def _beijunda(self, ctx, member: discord.Member):
         """Manda um beijunda para alguém."""
         if ctx.author.nick:
-            author = str(ctx.author.nick)
+            author = ctx.author.nick
         else:
-            author = str(ctx.author.name)
+            author = ctx.author.name
         if member.nick:
-            member = str(member.nick)
+            member = member.nick
         else:
-            member = str(member.name)
+            member = member.name
         message = author + ' mandou um beijunda para ' + member + '.'
         await ctx.send(message)
 
