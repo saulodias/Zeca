@@ -44,9 +44,14 @@ async def on_member_join(member):
         await general_channel.send(welcome_message)
 
 
+@bot.event
+async def on_reaction_add(reaction, user):
+    print('{}, {}, {}'.format(reaction, user, str(reaction.message.content)))
+
+
 @bot.command(name='revoke_role', hidden=True)
 @commands.is_owner()
-async def _revoke_role(ctx, *, role,):
+async def _revoke_role(ctx, *, role):
     role = await commands.RoleConverter().convert(ctx, role)
     for member in role.members:
         await member.remove_roles(role)
