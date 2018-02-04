@@ -120,7 +120,7 @@ class Utilities:
 
     @commands.command(name='priberam', aliases=['pri'])
     async def _priberam(self, ctx, *, entry):
-        """ Looks up a word in the Pribeiram Portuguese dictionary.
+        """ Looks up a word in the Priberam Portuguese dictionary.
 
         The definitions and examples might be in pre-1990 Agreement
         Portuguese. Make sure to check the footer for possible changes.

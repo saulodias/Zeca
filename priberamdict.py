@@ -109,6 +109,8 @@ class Entry(Query):
         """
         r = self.raw.find('div')
         r = r.find_all('div', recursive=False)[-1]
+        for item in r.find_all('categoria_ext_aao'):
+            item.parent.decompose()
         for item in r.find_all('strong'):
             item.parent.decompose()
         for item in r.find_all('span', class_='varpb'):
