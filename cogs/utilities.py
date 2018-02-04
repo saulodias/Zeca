@@ -1,5 +1,6 @@
 import discord
 import dicinformal
+import priberamdict
 import asyncio
 from discord.ext import commands
 
@@ -117,6 +118,31 @@ class Utilities:
             # await ctx.send(error.__cause__)
             await ctx.send(':exclamation: No results found.')
 
+    @commands.command(name='priberam', aliases=['pri'])
+    async def _priberam(self, ctx, *, entry):
+        """ Looks up a word in the Pribeiram Portuguese dictionary.
+
+        The definitions and examples might be in pre-1990 Agreement
+        Portuguese. Make sure to check the footer for possible changes.
+        
+        https://www.priberam.pt/
+        https://en.wikipedia.org/wiki/Portuguese_Language_Orthographic_Agreement_of_1990
+        """
+        results = priberamdict.Entry(entry)
+        output = results.definitions[0]
+        t = results.table_of_contents[0]
+        if t['affect']:
+            output = output + '_Após o acordo ortográfico:_ **' + \
+                t['br_aft'] + '** 🇧🇷, **' +  t['pt_aft'] + '** 🇵🇹.\n'
+        else:
+            output = output + '_Grafias:_ **' + \
+                t['br_bef'] + '** 🇧🇷, **' +  t['pt_bef'] + '** 🇵🇹.\n'   
+        await ctx.send(output)
+
+    @_priberam.error
+    async def __priberam_error(self, ctx, error):
+       await ctx.send(error.__cause__)
+
     @commands.command()
     async def nick(self, ctx, *, new_nick):
         """ Changes the nickname of a member. """
@@ -129,6 +155,7 @@ class Utilities:
             # await ctx.send(error.__cause__)
             await ctx.send('I don\'t have permission for that, master.')
 
+    
 
 def setup(bot):
     bot.add_cog(Utilities(bot))
