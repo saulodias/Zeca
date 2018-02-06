@@ -12,29 +12,29 @@ class Zoeira:
     @commands.command(name='ban', aliases=[])
     async def _ban(self, ctx, member: discord.Member):
         """For the craic."""
-        if ctx.author.nick:
-            author = ctx.author.nick
+
+        if member in ctx.message.mentions:
+            target = member.display_name
         else:
-            author = ctx.author.name
-        if member.nick:
-            member = member.nick
-        else:
-            member = member.name
-        message = author + ' has banned ' + member + '.'
+            target = member.mention
+
+        message = ':hammer: | **' + ctx.author.display_name + \
+            ' has banned ' + target + '**.'
+
         await ctx.send(message)
 
     @commands.command(name='beijunda', aliases=['bd'])
     async def _beijunda(self, ctx, member: discord.Member):
         """Manda um beijunda para alguém."""
-        if ctx.author.nick:
-            author = ctx.author.nick
+
+        if member in ctx.message.mentions:
+            target = member.display_name
         else:
-            author = ctx.author.name
-        if member.nick:
-            member = member.nick
-        else:
-            member = member.name
-        message = author + ' mandou um beijunda para ' + member + '.'
+            target = member.mention
+
+        message = ':kiss::peach: | **' + ctx.author.display_name + \
+            ' mandou um beijunda para ' + target + '**.'
+
         await ctx.send(message)
 
 
