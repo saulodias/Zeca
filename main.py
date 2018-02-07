@@ -27,7 +27,7 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='Type >help'))
     guild = bot.guilds[0]
     role = discord.utils.get(guild.roles, name='hitmeup')
-    for member in role.members:
+    for member in role.members or []:
         await member.remove_roles(role)
         await member.send(utilities.Utilities.expired_role_msg)
 
