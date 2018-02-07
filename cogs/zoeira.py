@@ -10,7 +10,7 @@ class Zoeira:
         self.bot = bot
 
     @commands.command(name='ban', aliases=[])
-    async def _ban(self, ctx, member: discord.Member):
+    async def _ban(self, ctx, *, member: discord.Member):
         """For the craic."""
 
         if member in ctx.message.mentions:
@@ -24,7 +24,7 @@ class Zoeira:
         await ctx.send(message)
 
     @commands.command(name='beijunda', aliases=['bd'])
-    async def _beijunda(self, ctx, member: discord.Member):
+    async def _beijunda(self, ctx, *, member: discord.Member):
         """Manda um beijunda para alguém."""
 
         if member in ctx.message.mentions:
