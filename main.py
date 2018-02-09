@@ -37,8 +37,8 @@ async def on_member_join(member):
     general_channel = discord.utils.get(bot.get_all_channels(), name='general')
     info_channel = discord.utils.get(bot.get_all_channels(), name='info')
 
-    welcome_message = 'Welcome, <@' + str(member.id) + '>! ' + \
-        'Please check out <#' + str(info_channel.id) + '> to learn ' + \
+    welcome_message = 'Welcome, ' +  member.mention + '! ' + \
+        'Please check out ' + info_channel.mention + ' to learn ' + \
         'about the server rules and cool stuff. :smile:'
     if general_channel is not None:
         await general_channel.send(welcome_message)
