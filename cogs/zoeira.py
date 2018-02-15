@@ -36,6 +36,23 @@ class Zoeira:
             ' mandou um beijunda para ' + target + '**.'
 
         await ctx.send(message)
+    
+    @commands.command(name='suckitvekat')
+    @commands.guild_only()
+    @commands.cooldown(1, 600, commands.BucketType.guild)
+    async def _vekat_suck(self, ctx):
+        """Manda o vekat catar coquinhos."""
+
+        vekat = ctx.guild.get_member_named('vekat#7105')
+        
+        if vekat is None:
+            pass
+
+        embed = discord.Embed(title='Friendly reminder')
+        embed.set_image(url="https://cdn.discordapp.com/attachments/256903500536086538/413688750007123969/Screenshot_8.png")
+        embed.set_footer(text="If vekat doesn't stop after this, you may ban him.")
+
+        await ctx.send(content='Hey ' + vekat.mention, embed=embed)
 
 
 def setup(bot):
