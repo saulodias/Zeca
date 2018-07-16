@@ -1,7 +1,11 @@
 import discord
 import private
+import os
+import sys
 from cogs import utilities
 from discord.ext import commands
+
+ROOT = os.path.dirname(sys.modules['__main__'].__file__)
 
 command_prefix = '>'
 description = """Portuguese Learning and Discussion utilities bot."""
@@ -18,18 +22,52 @@ if __name__ == "__main__":
             print('Failed to load extension ' + extension)
 
 
+# Create blacklist
+blacklist = [] 
+
 @bot.event
 async def on_ready():
     print('Logged in as: {}'.format(bot.user.name))
     print('ID: {}'.format(bot.user.id))
     print('Discord Version: {}'.format(discord.__version__))
     print('-------------')
-    await bot.change_presence(game=discord.Game(name='Type >help'))
+    activity = discord.Game(name='Type >help')
+    await bot.change_presence(activity=activity)
+
+    # Removes the hitmeup role from everyone who has it
     guild = bot.guilds[0]
     role = discord.utils.get(guild.roles, name='hitmeup')
-    for member in role.members or []:
-        await member.remove_roles(role)
-        await member.send(utilities.Utilities.expired_role_msg)
+    try: 
+        for member in role.members or []:
+            await member.remove_roles(role)
+            await member.send(utilities.Utilities.expired_role_msg)
+    except AttributeError:
+        pass # Ignores this if no one has the hitmeup role
+
+    # Load blacklisted users
+    try:
+        with open(os.path.join(ROOT, 'blacklist.txt')) as f:
+            blacklist = f.readlines()
+            blacklist = [i.strip() for i in blacklist] 
+            blacklist = [int(i) for i in blacklist] 
+            print('Blacklisted IDs: ')
+            print(blacklist)
+    except FileNotFoundError:
+        with open(os.path.join(ROOT, 'blacklist.txt'), 'w') as f:
+           pass
+
+
+# Check if user is not blacklisted         
+@bot.check
+def check_user(ctx):
+    try:
+        with open(os.path.join(ROOT, 'blacklist.txt')) as f:
+            blacklist = f.readlines()
+            blacklist = [i.strip() for i in blacklist] 
+            blacklist = [int(i) for i in blacklist] 
+    except FileNotFoundError:
+        pass
+    return ctx.author.id not in blacklist
 
 
 @bot.event
