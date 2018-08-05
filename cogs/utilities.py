@@ -3,6 +3,7 @@ import dicinformal
 import priberamdict
 import asyncio
 from discord.ext import commands
+from highlighter import compare_texts
 
 
 class Utilities:
@@ -156,6 +157,33 @@ class Utilities:
             await ctx.send('I don\'t have permission for that, master.')
 
     
+    @commands.command(name='correct', aliases=['c'])
+    async def _correct_message(self, ctx, message_id, *, correction):
+        """
+        Highlights the mistakes in a members message provided the message ID followed by the correction.
 
+        - The author of the message you want to correct must have the "Correct me" role.
+        - To get the ID of a message you have to right click the message and then click "Copy ID".
+        - To se the Copy ID option you must activate the developer mode.
+            Go to your Settings > Appearance > Advanced > Developer Mode
+        """
+        target_msg = await ctx.channel.get_message(message_id)
+        target_user = target_msg.author
+
+        role = discord.utils.get(target_user.roles, name='Correct me')
+                
+        if role is not None:
+            mistakes, corrected = compare_texts(target_msg.content, correction)
+            output = '{}, {} has corrected your message!\n{}\n{}\n'.format(
+                target_user.mention, ctx.author.display_name, mistakes, corrected)
+            await ctx.send(output)
+        else:
+            await ctx.send('The author of the message you want to correct ' + \
+            'must have a "Correct me" role.')
+
+        await asyncio.sleep(3)
+        await ctx.message.delete()
+
+       
 def setup(bot):
     bot.add_cog(Utilities(bot))
