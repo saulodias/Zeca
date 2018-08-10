@@ -64,7 +64,7 @@ class Utilities:
 
         elif role == 'list':
             output = 'Public roles available:\n' + '```' + \
-                     ', '.join(list(dict.fromkeys(public_roles.values()))) + '```'
+                     ', '.join(list(dict.fromkeys(self.public_roles.values()))) + '```'
             await ctx.send(output)
         else:
             raise commands.BadArgument
