@@ -21,13 +21,13 @@ class UDQuery:
         self.favicon = 'https://cdn.discordapp.com/attachments/477837663488180244/481154213288738837/udico.png'
         self.disclaimer = 'Urban Dictionary contains slang and profanity. Use it discreetly.'
 
+
 def _urlify(s):
     # Remove all non-word characters
     s = re.sub(r'[^\w\s]', '', s)
     # Replace all runs of whitespace with +
     s = re.sub(r'\s', '+', s)
     return s
-
 
 if __name__ == '__main__':
     myquery = UDQuery('porb', 0)
