@@ -20,11 +20,11 @@ class Utilities:
                        'expires in one hour.\nThanks for being part of the ' + \
                        'Portuguese Learning and Discussion Community! :smile:'
 
-    level_roles = {'level a': 'Level A', 'level b': 'Level B',
-                   'level c': 'Level C', 'native': 'Native'}
+    level_roles = {'level a': 'Level A', 'level b': 'Level B', 'level c': 'Level C',
+                   'native': 'Native Speaker', 'native speaker': 'Native Speaker'}
     country_roles = {'pt': 'PT', 'br': 'BR', 'ao': 'AO', 'cv': 'CV', 'gq': 'GQ',
                      'gw': 'GW', 'mo': 'MO', 'mz': 'MZ', 'st': 'ST', 'tl': 'TL'}
-    other_roles = {'hitmeup': 'hitmeup', 'notify me': 'Notify me'}
+    other_roles = {'hitmeup': 'hitmeup', 'notify me': 'Notify me', 'correct me': 'Correct me'}
     public_roles = {**level_roles, **country_roles, **other_roles}
 
     @commands.command(name='role', aliases=['r'])
@@ -64,7 +64,7 @@ class Utilities:
 
         elif role == 'list':
             output = 'Public roles available:\n' + '```' + \
-                     ', '.join(list(self.public_roles.values())) + '```'
+                     ', '.join(list(dict.fromkeys(self.public_roles.values()))) + '```'
             await ctx.send(output)
         else:
             raise commands.BadArgument
