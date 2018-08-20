@@ -2,8 +2,10 @@ import discord
 import dicinformal
 import priberamdict
 import asyncio
+import re
 from discord.ext import commands
 from highlighter import compare_texts
+from urbandic import UDQuery
 
 
 class Utilities:
@@ -184,6 +186,19 @@ class Utilities:
         await asyncio.sleep(3)
         await ctx.message.delete()
 
+    @commands.command(name='urbandictionary', aliases=['urban', 'ud'])
+    async def _urbandictionary(self, ctx, *, entry):
+        query = UDQuery(entry)
+        definition = query.definition
+        definition =  re.sub(r'[\[\]]', '', definition) # Remove [ and ] chars
+        embed = discord.Embed(title=query.entry,
+                                url=query.permalink,
+                                description=definition,
+                                color=0x3498DB)
+        embed.set_footer(icon_url=query.favicon,
+                         text=query.disclaimer)
+
+        await ctx.send(embed=embed)
        
 def setup(bot):
     bot.add_cog(Utilities(bot))
