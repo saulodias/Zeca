@@ -164,7 +164,7 @@ class Utilities:
 
         - The author of the message you want to correct must have the "Correct me" role.
         - To get the ID of a message you have to right click the message and then click "Copy ID".
-        - To se the Copy ID option you must activate the developer mode.
+        - To see the "Copy ID" option you must activate the developer mode.
             Go to your Settings > Appearance > Advanced > Developer Mode
         """
         target_msg = await ctx.channel.get_message(message_id)

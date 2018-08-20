@@ -26,7 +26,7 @@ class Query:
         self.term = term.strip()  
         if not self.term:
             raise ValueError('Entry must not be empty.')
-        elif bool(re.search(r'[^\w\s]', term)):
+        elif bool(re.search(r'[^\w\s-]', term)):
             raise ValueError('Entry must contain only' + \
                              ' alphanumeric characters and spaces.')
             
