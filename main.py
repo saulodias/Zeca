@@ -2,6 +2,7 @@ import discord
 import private
 import os
 import sys
+import re
 from cogs import utilities
 from discord.ext import commands
 
@@ -23,7 +24,10 @@ if __name__ == "__main__":
 
 
 # Create blacklist
-blacklist = [] 
+blacklist = []
+
+# Create name filter
+name_filter = re.compile(r'discord\.gg/\S+', re.I)
 
 @bot.event
 async def on_ready():
@@ -75,6 +79,10 @@ async def on_member_join(member):
     general_channel = discord.utils.get(bot.get_all_channels(), name='general')
     info_channel = discord.utils.get(bot.get_all_channels(), name='info')
 
+    member_name = str(member)
+    if name_filter.findall(member_name) is not None:
+        return await member.ban(reason="[bot] banned for blacklisted name")
+    
     welcome_message = 'Welcome, ' +  member.mention + '! ' + \
         'Please check out ' + info_channel.mention + ' to learn ' + \
         'about the server rules and cool stuff. :smile:'
